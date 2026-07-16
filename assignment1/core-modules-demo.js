@@ -38,3 +38,29 @@ async function useFileSystemPromises() {
 useFileSystemPromises();
 
 // Streams for large files- log first 40 chars of each chunk
+
+const largeFile = path.join(sampleFilesDir, "largefile.txt");
+let largeFileContent = "";
+
+for (let i = 1; i <= 100; i += 1) {
+  largeFileContent += `This is line ${i} in a large file.\n`;
+}
+
+fs.writeFileSync(largeFile, largeFileContent);
+
+const readStream = fs.createReadStream(largeFile, {
+  encoding: "utf8",
+  highWaterMark: 1024,
+});
+
+readStream.on("data", (chunk) => {
+  console.log("Read chunk:", chunk.slice(0, 40));
+});
+
+readStream.on("end", () => {
+  console.log("Finished reading large file with streams");
+});
+
+readStream.on("error", (err) => {
+  console.error("Stream error:", err.message);
+});
