@@ -10,7 +10,7 @@ function register(req, res) {
   global.users.push(newUser);
   global.user_id = newUser;
 
-  res.status(201).json({
+  return res.status(201).json({
     name: newUser.name,
     email: newUser.email,
   });
@@ -24,14 +24,12 @@ function logon(req, res) {
   );
 
   if (!user) {
-    return res.status(401).json({
-      message: "Invalid email or password.",
-    });
+    return res.sendStatus(401);
   }
 
   global.user_id = user;
 
-  res.status(200).json({
+  return res.status(200).json({
     name: user.name,
     email: user.email,
   });
@@ -40,9 +38,7 @@ function logon(req, res) {
 function logoff(req, res) {
   global.user_id = null;
 
-  res.status(200).json({
-    message: "Logged off successfully.",
-  });
+  return res.sendStatus(200);
 }
 
 module.exports = {

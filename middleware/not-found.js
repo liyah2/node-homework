@@ -1,6 +1,6 @@
-function notFound(req, res) {
-  res.status(404).json({
-    message: `No route found for ${req.method} ${req.path}`,
+function notFound(req, res, next) {
+  return res.status(404).json({
+    error: "Route not found",
   });
 }
 
