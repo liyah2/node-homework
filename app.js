@@ -18,12 +18,6 @@ app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-app.post("/testpost", (req, res) => {
-  res.status(200).json({
-    message: "POST route works",
-  });
-});
-
 app.use(notFound);
 app.use(errorHandler);
 
