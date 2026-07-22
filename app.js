@@ -1,5 +1,4 @@
 const express = require("express");
-const timeRouter = require("./routes/timeRoutes");
 const userRouter = require("./routes/userRoutes");
 const notFound = require("./middleware/not-found");
 const errorHandler = require("./middleware/error-handler");
@@ -11,12 +10,7 @@ global.tasks = [];
 const app = express();
 
 app.use(express.json());
-app.use("/api", timeRouter);
 app.use("/api/users", userRouter);
-
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
 
 app.use(notFound);
 app.use(errorHandler);
